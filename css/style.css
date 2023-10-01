@@ -115,7 +115,7 @@ header {
 .header_nav li {
     list-style: none;
     display: inline;
-    margin-right: 20px;
+    margin-left: 25px;
     font-size: 20px;
 }
 
@@ -125,7 +125,7 @@ header {
 }
 
 .header_nav li i {
-    margin-left: 50px;
+    margin-left: 40px;
 }
 
 /* HEADER */
