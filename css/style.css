@@ -1,3 +1,11 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* FONT */
 @font-face {
     font-family: 'SF Pro Display';
     src: url('../font/SFProDisplay-HeavyItalic.woff2') format('woff2'),
@@ -78,3 +86,25 @@
     font-style: italic;
     font-display: swap;
 }
+
+/* GENERAL */
+img {
+    height: 300px;
+}
+
+/* HEADER */
+
+/* HEADER */
+
+/* BANNER */
+
+/* BANNER */
+
+/* PRODUCTS */
+
+
+/* PRODUCTS */
+
+/* FOOTER */
+
+/* FOOTER */
