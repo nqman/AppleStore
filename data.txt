@@ -1,0 +1,65 @@
+[
+  {
+    "id": "01",
+    "type": "phone",
+    "name": "iPhone 15 Pro",
+    "price": "999",
+    "image": "IP_15pro.png"
+  },
+  {
+    "id": "02",
+    "type": "phone",
+    "name": "iPhone 13",
+    "price": "799",
+    "image": "IP_13.png"
+  },
+  {
+    "id": "03",
+    "name": "iPhone SE",
+    "price": "699",
+    "image": "IP_SE.png",
+    "type": "phone"
+  },
+  {
+    "id": "04",
+    "type": "laptop",
+    "name": "Macbook Pro",
+    "price": "1,999",
+    "image": "macbook_pro.png"
+  },
+  {
+    "id": "05",
+    "type": "laptop",
+    "name": "Macbook Air",
+    "price": "1,299",
+    "image": "macbook_air.png"
+  },
+  {
+    "id": "06",
+    "type": "tablet",
+    "name": "iPad Pro",
+    "price": "799",
+    "image": "ipad_pro.png"
+  },
+  {
+    "id": "07",
+    "type": "tablet",
+    "name": "iPad Air",
+    "price": "499",
+    "image": "ipad_gen9.png"
+  },
+  {
+    "id": "08",
+    "type": "watch",
+    "name": "Watch Ultra",
+    "price": "799",
+    "image": "watch_ultra.png"
+  },
+  {
+    "id": "09",
+    "type": "watch",
+    "name": "Watch Nike",
+    "price": "699",
+    "image": "watch_nike.png"
+  }
+]
