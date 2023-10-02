@@ -88,9 +88,7 @@
 }
 
 /* GENERAL */
-.container {
-    max-width: 1140px;
-}
+
 
 img {
     height: 300px;
@@ -112,11 +110,13 @@ header {
     font-size: 25px;
 }
 
+
+
 .header_nav li {
     list-style: none;
     display: inline;
-    margin-left: 25px;
     font-size: 20px;
+    padding: 0 10px;
 }
 
 .header_nav li a {
@@ -126,6 +126,22 @@ header {
 
 .header_nav li i {
     margin-left: 40px;
+    position: relative;
+}
+
+.header_nav #cartNumber {
+    display: inline-block;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+    background-color: white;
+    max-width: fit-content;
+    height: 20px;
+    border-radius: 10px;
+    padding: 0 3px;
+    color: orangered;
+    position: absolute;
+    top: -5px;
 }
 
 /* HEADER */
