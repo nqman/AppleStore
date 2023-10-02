@@ -104,6 +104,11 @@ img {
 /* HEADER */
 header {
     background-color: #CBCBCC;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 10;
 }
 
 .header_logo {
