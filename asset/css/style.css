@@ -104,7 +104,7 @@ img {
 /* HEADER */
 header {
     background-color: #CBCBCC;
-    position: fixed;
+    /* position: fixed; */
     left: 0;
     top: 0;
     width: 100%;
@@ -153,6 +153,40 @@ header {
 /* HEADER */
 
 /* BANNER */
+
+.banner{
+    /* background-image: url(../img/product-header-bg.jpg); */
+    background-color: black;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: bottom;
+    padding: 25px 0;
+}
+
+.banner .banner_content{
+    /* display: flex; */
+    align-items: center;
+}
+
+.banner .banner_content .banner_text h1,p{
+    color: #F5F5F7 ;
+    font-weight: 600;
+}
+
+.banner_text p{
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+/* .banner .banner_content .banner_image img{
+    height: 600px;
+    padding-left: 45%;
+} */
+
+.banner .banner_content .banner_image img{
+    height: 400px;
+    padding-left: 5%;
+}
 
 /* BANNER */
 
