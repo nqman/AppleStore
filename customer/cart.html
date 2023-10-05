@@ -10,10 +10,70 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../asset/css/style.css">
 </head>
 
 <body>
-    <h1>CART</h1>
+    <header>
+        <div class="container">
+            <div class="row pt-3 pb-3">
+                <div class="header_logo d-flex align-items-center col-lg-6 col-md-12 col-sm-12">
+                    <a href="../index.html">
+                        <i class="fa-brands fa-apple"></i>
+                        <b class="ml-2 mr-3">Apple Store</b>|</a>
+                    <p class="ml-2">Cart</p>
+                </div>
+                <div class="search_product col-lg-6 col-md-12 col-sm-12 ">
+                    <input type="text" placeholder="Find products">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="list_in_cart">
+        <div class="container">
+            <div class="item_in_cart d-flex justify-content-between align-items-center mb-4">
+                <div class="item_info text-center">
+                    <img src="../asset/img/IP_15pro.png">
+                    <p class="price"><b>$</b> 999.00</p>
+                </div>
+                <div class="quantity d-flex align-items-center ">
+                    <button><i class="fa-solid fa-minus"></i></button>
+                    <p id="count" class="">8</p>
+                    <button><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <div id="totalPrice" class="total"><b>$</b> 9990.00</div>
+                <button class="button-62" role="button" id="deleteItem"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="20" height="20" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            d="M14 11v6m-4-6v6M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M4 7h16M7 7l2-4h6l2 4" />
+                    </svg></button>
+            </div>
+            <div class="item_in_cart d-flex justify-content-between align-items-center mb-4">
+                <div class="item_info text-center">
+                    <img src="../asset/img/IP_SE.png">
+                    <p class="price"><b>$</b> 999.00</p>
+                </div>
+                <div class="quantity d-flex align-items-center ">
+                    <button><i class="fa-solid fa-minus"></i></button>
+                    <p id="count" class="">8</p>
+                    <button><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <div id="totalPrice" class="total"><b>$</b> 9990.00</div>
+                <button class="button-62" role="button" id="deleteItem"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="20" height="20" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            d="M14 11v6m-4-6v6M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M4 7h16M7 7l2-4h6l2 4" />
+                    </svg></button>
+            </div>
+
+        </div>
+
+    </section>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
