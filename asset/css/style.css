@@ -131,6 +131,12 @@ header {
 .header_nav li i {
     margin-left: 40px;
     position: relative;
+    transition: all 0.2s;
+}
+
+.header_nav li i:hover {
+    color: orangered;
+
 }
 
 .header_nav #cartNumber {
