@@ -67,7 +67,7 @@ function selectFilter() {
   console.log(type);
   return type;
 }
-domID("filter").onclick = function (type) {
+domID("filter").onclick = function () {
   var seclectIndex = selectFilter();
   if (seclectIndex === "phone") {
     var elements = document.querySelectorAll(".phone");
