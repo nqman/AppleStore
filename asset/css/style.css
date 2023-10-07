@@ -303,15 +303,49 @@ select {
 /* HEADER */
 
 /* LIST_ITEM */
-.item_in_cart {
-    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+.list_item_cart {
+    display: grid;
+    grid-template-columns: auto;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
     border-radius: 10px;
-    padding: 20px;
-    padding-right: 40px;
+
+
 }
 
-.list_in_cart .container {
-    max-width: 900px;
+
+.list_item_cart thead tr th {
+    padding-bottom: 10px;
+}
+
+
+
+.list_item_cart th {
+    padding-top: 20px;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+
+}
+
+.list_item_cart td {
+    text-align: center;
+}
+
+.list_item_cart td:first-child {
+    text-align: left;
+    padding-left: 100px;
+    width: 300px;
+}
+
+.list_item_cart th:first-child {
+    text-align: left;
+    padding-left: 50px;
+}
+
+.list_item_cart img {
+    height: 150px;
+    padding: 0;
+
 }
 
 .quantity button {
@@ -327,7 +361,7 @@ select {
 .quantity button {
     height: 100%;
     width: 40px;
-    border: 1px solid black;
+    border: 1px solid rgb(172, 166, 166);
 }
 
 .quantity button i {
@@ -339,7 +373,7 @@ select {
     margin-bottom: 0;
     padding: 0 10px;
     text-align: center;
-    border: solid 1px black;
+    border: solid 1px rgb(172, 166, 166);
 }
 
 #count {
@@ -348,12 +382,7 @@ select {
     line-height: 40px;
 }
 
-#deleteItem {
-    line-height: 20px;
-    width: 40px;
-    height: 40px;
-    padding: 5px;
-}
+
 
 
 
