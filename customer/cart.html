@@ -36,9 +36,6 @@
     </header>
     <section class="list_in_cart">
         <div class="container">
-            <div class="cart_header">
-
-            </div>
             <div class="list_item_cart">
                 <table>
                     <thead>
@@ -49,8 +46,9 @@
                             <th>Operation</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id="itemInCart">
+
+                        <!-- <tr>
                             <td>
                                 <img src="../asset/img/IP_15pro.png">
                                 <h6 class="mt-2">iPhone 15 Pro</h6>
@@ -97,43 +95,13 @@
                                             d="M14 11v6m-4-6v6M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M4 7h16M7 7l2-4h6l2 4" />
                                     </svg></button>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
+                <div id="loaderCart"></div>
             </div>
-            <!-- <div class="item_in_cart d-flex justify-content-between align-items-center mb-4">
-                <div class="item_info text-center">
-                    <p class="price"><b>$</b> 999.00</p>
-                </div>
-                <div class="quantity d-flex align-items-center ">
-                    <button><i class="fa-solid fa-minus"></i></button>
-                    <p id="count" class="">8</p>
-                    <button><i class="fa-solid fa-plus"></i></button>
-                </div>
-                <div id="totalPrice" class="total"><b>$</b> 9990.00</div>
-                <button class="button-62" role="button" id="deleteItem"><svg xmlns="http://www.w3.org/2000/svg"
-                        width="20" height="20" viewBox="0 0 24 24">
-                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            d="M14 11v6m-4-6v6M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M4 7h16M7 7l2-4h6l2 4" />
-                    </svg></button>
-            </div>
-            <div class="item_in_cart d-flex justify-content-between align-items-center mb-4">
-                <div class="item_info text-center">
-                    <img src="../asset/img/IP_SE.png">
-                    <p class="price"><b>$</b> 999.00</p>
-                </div>
-                <div class="quantity d-flex align-items-center ">
-                    <button><i class="fa-solid fa-minus"></i></button>
-                    <p id="count" class="">8</p>
-                    <button><i class="fa-solid fa-plus"></i></button>
-                </div>
-                <div id="totalPrice" class="total"><b>$</b> 9990.00</div>
-                <button class="button-62" role="button" id="deleteItem"><svg xmlns="http://www.w3.org/2000/svg"
-                        width="20" height="20" viewBox="0 0 24 24">
-                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            d="M14 11v6m-4-6v6M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M4 7h16M7 7l2-4h6l2 4" />
-                    </svg></button>
         </div>
+
 
     </section>
 
@@ -148,6 +116,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <!-- CDN library Axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"
+        integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../customer/src/service/callapi.js"></script>
+    <script src="./customer.js"></script>
 </body>
 
 </html>

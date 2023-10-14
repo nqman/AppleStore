@@ -18,6 +18,21 @@ function getListProduct() {
     });
 }
 
+// ONCHANGE
+// function getType() {
+//   domID("loader").style.display = "block";
+//   let type = domID("select").value;
+//   console.log(type);
+//   let promise = api.getProductByType("type");
+//   promise
+//     .then(function (result) {
+//       domID("loader").style.display = "none";
+//       renderUI(result.data);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// }
 // REDER
 function renderUI(data) {
   var content = "";
@@ -34,9 +49,9 @@ function renderUI(data) {
             <img src="./asset/img/${product.image}">
         </div>
         <div class="item_bottom d-flex justify-content-between align-items-center">
-            <button id="addCart" class="btn"> <i class="fa-solid fa-cart-plus"></i>
+            <button onclick="addCart()" class="btn add_cart"> <i class="fa-solid fa-cart-plus"></i>
                 </i> Add to Cart</button>
-            <button id="buyNow" class="btn btn-primary">Buy Now</button>
+            <button onclick="buyNow()" class="btn btn-primary buy_now">Buy Now</button>
         </div>
     </div>
 </div>
@@ -44,36 +59,12 @@ function renderUI(data) {
   }
   domID("listProduct").innerHTML = content;
 }
+// ADD PRODUCT TO CART
 getListProduct();
-
-// FILTER
-function selectFilter() {
-  var seclectIndex = domID("select").selectedIndex;
-  var type = "All";
-  switch (seclectIndex) {
-    case 1:
-      type = "phone";
-      break;
-    case 2:
-      type = "laptop";
-      break;
-    case 3:
-      type = "tablet";
-      break;
-    case 4:
-      type = "watch";
-      break;
-  }
-  console.log(type);
-  return type;
+let countProduct = 0;
+domID("cartNumber").style.display = "none";
+function addCart() {
+  countProduct++;
+  domID("cartNumber").style.display = "inline-block";
+  domID("cartNumber").innerHTML = countProduct;
 }
-domID("filter").onclick = function () {
-  var seclectIndex = selectFilter();
-  if (seclectIndex === "phone") {
-    var elements = document.querySelectorAll(".phone");
-    console.log(elements);
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].style.display = "none";
-    }
-  }
-};
