@@ -6,16 +6,10 @@ function CallApi() {
     });
     return promise;
   };
-  this.getProductByType = function (type) {
+
+  this.getProductByID = function (product) {
     var promise = axios({
-      url: `https://6519a404818c4e98ac609bd3.mockapi.io/api/products/${type}`,
-      method: "GET",
-    });
-    return promise;
-  };
-  this.getProductByID = function () {
-    var promise = axios({
-      url: "https://6519a404818c4e98ac609bd3.mockapi.io/api/products",
+      url: `https://6519a404818c4e98ac609bd3.mockapi.io/api/products${product.id}`,
       method: "GET",
     });
     return promise;

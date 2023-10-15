@@ -1,4 +1,5 @@
 // DOM ID
+
 function domID(id) {
   return document.getElementById(id);
 }
@@ -41,7 +42,7 @@ function renderCart(data) {
 // CART
 function itemInCart() {
   domID("loaderCart").style.display = "block";
-  var promise = api.getProductByID();
+  var promise = api.fectchData();
   promise
     .then(function (result) {
       domID("loaderCart").style.display = "none";
