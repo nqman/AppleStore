@@ -3,7 +3,7 @@ function domID(id) {
   return document.getElementById(id);
 }
 
-var api = new CallApi();
+let api = new CallApi();
 function getListProduct() {
   domID("loader").style.display = "block";
 
@@ -44,9 +44,9 @@ function filter() {
 
 // REDER
 function renderUI(data) {
-  var content = "";
-  for (var i = 0; i < data.length; i++) {
-    var product = data[i];
+  let content = "";
+  for (let i = 0; i < data.length; i++) {
+    let product = data[i];
     content += `
     <div class="${product.type} product_item col-lg-4 col-md-6 col-sm-12">
     <div class="product_card p-4">
@@ -74,21 +74,40 @@ getListProduct();
 let countProduct = 0;
 domID("cartNumber").style.display = "none";
 let listItemInCart = [];
+let idExist = [];
 function addCart(button) {
-  countProduct++;
-  domID("cartNumber").style.display = "inline-block";
-  domID("cartNumber").innerHTML = countProduct;
   let productId = button.getAttribute("data-id");
-  console.log("productId", productId);
   let promise = api.fectchData();
   promise
     .then(function (result) {
       let data = result.data;
-      console.log(data);
-      const item = data.filter((value) => value.id === productId);
-      listItemInCart.push(item);
-      console.log(listItemInCart);
-      renderCart(listItemInCart);
+      // console.log(data);
+      let item = data.filter((value) => value.id === productId);
+      if (idExist.length === 0) {
+        listItemInCart.push(item);
+        renderCart(listItemInCart);
+        idExist.push(productId);
+        console.log(idExist);
+        countProduct++;
+        domID("cartNumber").style.display = "inline-block";
+        domID("cartNumber").innerHTML = countProduct;
+        return;
+      }
+      let checkRepeat = false;
+      for (let i = 0; i < idExist.length; i++) {
+        if (productId === idExist[i]) {
+          checkRepeat = true;
+        }
+      }
+      if (!checkRepeat) {
+        listItemInCart.push(item);
+        renderCart(listItemInCart);
+        console.log(listItemInCart);
+        idExist.push(productId);
+        console.log(idExist);
+        countProduct++;
+      }
+      domID("cartNumber").innerHTML = countProduct;
     })
     .catch(function (error) {
       console.log(error);
@@ -98,47 +117,55 @@ function addCart(button) {
 
 // RENDER CART
 function renderCart(data) {
-  var content = "";
-  for (var i = 0; i < data.length; i++) {
-    var listItemInCart = data[i];
-    content += `
-    <tr>
-                            <td>
-                                <img src="../asset/img/${listItemInCart.image}">
-                                <h6 class="mt-2">${listItemInCart.name}</h6>
-                            </td>
-                            <td>
-                                <div class="quantity d-flex align-items-center justify-content-center ">
-                                    <button><i class="fa-solid fa-minus"></i></button>
-                                    <p id="count" class="">8</p>
-                                    <button><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                            </td>
-                            <td>
-                                <div id="totalPrice" class="total"><b>$</b> ${listItemInCart.price}</div>
-                            </td>
-                            <td>
-                                <button class="button-62" role="button" id="deleteItem"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                        <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M14 11v6m-4-6v6M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M4 7h16M7 7l2-4h6l2 4" />
-                                    </svg></button>
-                            </td>
-                        </tr>
-  `;
+  let content = "";
+  for (let i = 0; i < data.length; i++) {
+    let listItemInCart = data[i];
+    for (let i = 0; i < listItemInCart.length; i++) {
+      let itemInCart = listItemInCart[i];
+      content += `
+      <tr>
+                              <td>
+                                  <img src="../asset/img/${itemInCart.image}">
+                                  <h6 class="mt-2">${itemInCart.name}</h6>
+                              </td>
+                              <td>
+                                  <div  class="quantity d-flex align-items-center justify-content-center ">
+                    <button onclick = decrement(${itemInCart.id})>-</button>
+                                      <span class="count_${itemInCart.id}">1</span>
+                    <button onclick = increment(${itemInCart.id})>+</button>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div id="totalPrice" class="total"><b>$</b> ${itemInCart.price}</div>
+                              </td>
+                              <td>
+                                  <button  class="btn btn-warning" id="deleteItem">Delete</button>
+                              </td>
+                          </tr>
+    `;
+    }
   }
   domID("itemInCart").innerHTML = content;
 }
-// CART
-// function itemInCart() {
-//   var promise = api.fectchData();
-//   promise
-//     .then(function (result) {
-//       renderCart(result.data);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
-// itemInCart();
+// CHANGE QUANTITY
+// Get the elements
+let productQuantities = {};
+
+function decrement(id) {
+  if (productQuantities[id] === undefined || productQuantities[id] <= 1) {
+    alert("Are you sure you want to quit this product?");
+    document.querySelector(`.count_0${id}`).innerHTML = "";
+    return;
+  }
+  productQuantities[id]--;
+  document.querySelector(`.count_0${id}`).innerHTML = productQuantities[id];
+}
+function increment(id) {
+  if (productQuantities[id] === undefined) {
+    productQuantities[id] = 1;
+  } else {
+    productQuantities[id]++;
+  }
+
+  document.querySelector(`.count_0${id}`).innerHTML = productQuantities[id];
+}
