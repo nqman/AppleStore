@@ -7,32 +7,36 @@ var api = new CallApi();
 function getListProduct() {
   domID("loader").style.display = "block";
 
-  var promise = api.fectchData();
+  let promise = api.fectchData();
   promise
     .then(function (result) {
       domID("loader").style.display = "none";
       renderUI(result.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+// ONCHANGE
+function filter() {
+  let typeSelect = domID("select").value;
+  console.log(typeSelect);
+  let promise = api.fectchData();
+  promise
+    .then(function (result) {
+      domID("loader").style.display = "none";
+      let data = result.data;
+      console.log(data);
+      const typeProduct = data.filter((value) => value.type === typeSelect);
+      data = typeProduct;
+      console.log(data);
+      renderUI(data);
     })
     .catch(function (error) {
       console.log(error);
     });
 }
 
-// ONCHANGE
-function getType() {
-  domID("loader").style.display = "block";
-  let type = domID("select").value;
-  console.log(type);
-  let promise = api.getProductByType("type");
-  promise
-    .then(function (result) {
-      domID("loader").style.display = "none";
-      renderUI(result.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
 // REDER
 function renderUI(data) {
   var content = "";
@@ -59,8 +63,10 @@ function renderUI(data) {
   }
   domID("listProduct").innerHTML = content;
 }
-// ADD PRODUCT TO CART
 getListProduct();
+
+// ADD PRODUCT TO CART
+// getListProduct();
 let countProduct = 0;
 domID("cartNumber").style.display = "none";
 function addCart() {
