@@ -19,20 +19,20 @@ function getListProduct() {
 }
 
 // ONCHANGE
-// function getType() {
-//   domID("loader").style.display = "block";
-//   let type = domID("select").value;
-//   console.log(type);
-//   let promise = api.getProductByType("type");
-//   promise
-//     .then(function (result) {
-//       domID("loader").style.display = "none";
-//       renderUI(result.data);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
+function getType() {
+  domID("loader").style.display = "block";
+  let type = domID("select").value;
+  console.log(type);
+  let promise = api.getProductByType("type");
+  promise
+    .then(function (result) {
+      domID("loader").style.display = "none";
+      renderUI(result.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
 // REDER
 function renderUI(data) {
   var content = "";
