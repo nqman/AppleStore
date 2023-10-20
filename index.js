@@ -112,6 +112,7 @@ function addCart(id) {
 //===================================
 
 // RENDER CART
+
 function renderCart(data) {
   let content = "";
   for (let i = 0; i < data.length; i++) {
@@ -120,8 +121,7 @@ function renderCart(data) {
       let itemInCart = listItemInCart[i];
       const id = itemInCart.id;
       const quantity = productQuantities[id];
-      const totalPrice = quantity * itemInCart.price;
-
+      let totalPriceItem = quantity * itemInCart.price;
       content += `
       <tr>
                               <td>
@@ -135,8 +135,9 @@ function renderCart(data) {
                     <button onclick = increment(${itemInCart.id})>+</button>
                                   </div>
                               </td>
-                              <td>
-                                  <div id="totalPrice_${id}" class="total"><b>$</b> ${totalPrice}</div>
+                              <td >
+                                <i class="fa-solid fa-dollar-sign"></i>
+                                  <div id="totalPrice_${id}" class="totalPriceItem d-inline">${totalPriceItem}</div>
                               </td>
                               <td>
                               <button class="btn btn-warning" onclick = deleteProduct(${itemInCart.id}) >Delete</button>
@@ -145,7 +146,9 @@ function renderCart(data) {
     `;
     }
   }
+
   domID("itemInCart").innerHTML = content;
+  renderPriceAll();
 }
 // CHANGE QUANTITY
 function decrement(id) {
@@ -154,7 +157,6 @@ function decrement(id) {
       productQuantities[id] = 0;
       renderCart(listItemInCart);
       deleteProduct(id);
-      // document.querySelector(`#decrease_${id}`).disabled = true;
       return;
     }
     productQuantities[id] = 1;
@@ -171,6 +173,13 @@ function increment(id) {
 
 // DELETE PRODUCT
 function deleteProduct(id) {
+  // renderPriceAll(id);
+
+  countProduct--;
+  domID("cartNumber").innerHTML = countProduct;
+
+  if (countProduct == 0) {
+  }
   let productId = id;
   for (let i = 0; i < listItemInCart.length; i++) {
     let itemInCart = listItemInCart[i][0]; // Lấy sản phẩm từ mảng con
@@ -186,13 +195,21 @@ function deleteProduct(id) {
   }
 }
 
-// console.log(listItemInCart);
+// PURCHASE PRODUCT
+domID("purchase").onclick = function () {
+  listItemInCart = [];
+  renderCart(listItemInCart);
+  countProduct = 0;
+  domID("cartNumber").style.display = "none";
+};
 
-// if (itemInCart == productId) {
-//   // Xóa sản phẩm khỏi danh sách
-//   listItemInCart.splice(productId, 1);
-
-//   // Cập nhật số lượng sản phẩm và render lại giỏ hàng
-//   productQuantities[id] = 0;
-//   renderCart(listItemInCart);
-// }
+function renderPriceAll() {
+  let elements = document.querySelectorAll(".totalPriceItem");
+  // console.log(elements);
+  let totalPriceAll = 0;
+  for (let i = 0; i < elements.length; i++) {
+    totalPriceAll += parseInt(elements[i].textContent);
+  }
+  // console.log(totalPriceAll);
+  domID("totalPriceAll").textContent = totalPriceAll;
+}
