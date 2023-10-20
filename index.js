@@ -177,8 +177,8 @@ function deleteProduct(id) {
 
   countProduct--;
   domID("cartNumber").innerHTML = countProduct;
-
   if (countProduct == 0) {
+    domID("cartNumber").style.display = "none";
   }
   let productId = id;
   for (let i = 0; i < listItemInCart.length; i++) {
