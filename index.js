@@ -153,6 +153,7 @@ function decrement(id) {
     if (confirm(`"Do you want to delete this product?"`) == true) {
       productQuantities[id] = 0;
       renderCart(listItemInCart);
+      deleteProduct(id);
       // document.querySelector(`#decrease_${id}`).disabled = true;
       return;
     }
@@ -171,21 +172,27 @@ function increment(id) {
 // DELETE PRODUCT
 function deleteProduct(id) {
   let productId = id;
-  console.log(productId);
-  console.log(listItemInCart);
   for (let i = 0; i < listItemInCart.length; i++) {
-    let itemInCart = listItemInCart[i];
-    console.log(itemInCart[i]);
-  }
-
-  // console.log(listItemInCart);
-
-  if (itemInCart == productId) {
-    // Xóa sản phẩm khỏi danh sách
-    listItemInCart.splice(productId, 1);
-
-    // Cập nhật số lượng sản phẩm và render lại giỏ hàng
-    productQuantities[id] = 0;
-    renderCart(listItemInCart);
+    let itemInCart = listItemInCart[i][0]; // Lấy sản phẩm từ mảng con
+    if (itemInCart.id == productId) {
+      // Tìm thấy sản phẩm có id tương ứng
+      listItemInCart.splice(i, 1);
+      productQuantities[id] = 0;
+      renderCart(listItemInCart);
+      console.log(itemInCart.id); // In ra sản phẩm
+      // Đây bạn có thể trích xuất các giá trị cụ thể của itemInCart bằng cách sử dụng itemInCart.property (ví dụ: itemInCart.price)
+      break; // Đã tìm thấy sản phẩm, có thể dừng vòng lặp
+    }
   }
 }
+
+// console.log(listItemInCart);
+
+// if (itemInCart == productId) {
+//   // Xóa sản phẩm khỏi danh sách
+//   listItemInCart.splice(productId, 1);
+
+//   // Cập nhật số lượng sản phẩm và render lại giỏ hàng
+//   productQuantities[id] = 0;
+//   renderCart(listItemInCart);
+// }
