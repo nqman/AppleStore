@@ -58,7 +58,7 @@ function renderUI(data) {
             <img src="./asset/img/${product.image}">
         </div>
         <div class="item_bottom d-flex justify-content-between align-items-center">
-            <button onclick="addCart(this)" data-id="${product.id}" class="btn add_cart"> <i class="fa-solid fa-cart-plus"></i>
+            <button onclick="addCart(${product.id})" id="" class="btn add_cart"> <i class="fa-solid fa-cart-plus"></i>
                 </i> Add to Cart</button>
             <button onclick="buyNow()" class="btn btn-primary buy_now">Buy Now</button>
         </div>
@@ -71,31 +71,20 @@ function renderUI(data) {
 getListProduct();
 
 // ADD PRODUCT TO CART
-let countProduct = 0;
 domID("cartNumber").style.display = "none";
+let countProduct = 0;
 let listItemInCart = [];
 let idExist = [];
-let quantityID = [];
-function addCart(button) {
-  let productId = button.getAttribute("data-id");
-  quantityID.push(productId);
-  console.log(quantityID);
+let productQuantities = {};
+// let countID = 1;
+function addCart(id) {
+  let productId = id;
+  console.log(productId);
   let promise = api.fectchData();
   promise
     .then(function (result) {
       let data = result.data;
-      // console.log(data);
-      let item = data.filter((value) => value.id === productId);
-      if (idExist.length === 0) {
-        listItemInCart.push(item);
-        renderCart(listItemInCart);
-        idExist.push(productId);
-        console.log(idExist);
-        countProduct++;
-        domID("cartNumber").style.display = "inline-block";
-        domID("cartNumber").innerHTML = countProduct;
-        return;
-      }
+      let item = data.filter((value) => value.id == productId);
       let checkRepeat = false;
       for (let i = 0; i < idExist.length; i++) {
         if (productId === idExist[i]) {
@@ -105,21 +94,21 @@ function addCart(button) {
       }
       if (!checkRepeat) {
         listItemInCart.push(item);
-        renderCart(listItemInCart);
-        console.log(listItemInCart);
         idExist.push(productId);
-        // console.log(idExist);
         countProduct++;
+        domID("cartNumber").style.display = "inline-block";
+        domID("cartNumber").innerHTML = countProduct;
+        productQuantities[id] = 1;
       } else {
-        // nếu trùng thì tăng số lượng lên
+        productQuantities[id]++;
       }
-
-      domID("cartNumber").innerHTML = countProduct;
+      renderCart(listItemInCart);
     })
     .catch(function (error) {
       console.log(error);
     });
 }
+
 //===================================
 
 // RENDER CART
@@ -129,6 +118,10 @@ function renderCart(data) {
     let listItemInCart = data[i];
     for (let i = 0; i < listItemInCart.length; i++) {
       let itemInCart = listItemInCart[i];
+      const id = itemInCart.id;
+      const quantity = productQuantities[id];
+      const totalPrice = quantity * itemInCart.price;
+
       content += `
       <tr>
                               <td>
@@ -138,15 +131,15 @@ function renderCart(data) {
                               <td>
                                   <div  class="quantity d-flex align-items-center justify-content-center ">
                     <button onclick = decrement(${itemInCart.id})>-</button>
-                                      <span class="count_${itemInCart.id} p-2">1</span>
+                                      <span class="count_${id} p-2">${quantity}</span>
                     <button onclick = increment(${itemInCart.id})>+</button>
                                   </div>
                               </td>
                               <td>
-                                  <div id="totalPrice" class="total"><b>$</b> ${itemInCart.price}</div>
+                                  <div id="totalPrice_${id}" class="total"><b>$</b> ${totalPrice}</div>
                               </td>
                               <td>
-                                  <button  class="btn btn-warning" id="deleteItem">Delete</button>
+                              <button class="btn btn-warning" onclick = deleteProduct(${itemInCart.id}) >Delete</button>
                               </td>
                           </tr>
     `;
@@ -155,24 +148,44 @@ function renderCart(data) {
   domID("itemInCart").innerHTML = content;
 }
 // CHANGE QUANTITY
-// Get the elements
-// let productQuantities = {};
+function decrement(id) {
+  if (productQuantities[id] <= 1) {
+    if (confirm(`"Do you want to delete this product?"`) == true) {
+      productQuantities[id] = 0;
+      renderCart(listItemInCart);
+      // document.querySelector(`#decrease_${id}`).disabled = true;
+      return;
+    }
+    productQuantities[id] = 1;
+    renderCart(listItemInCart);
+  } else {
+    productQuantities[id]--;
+    renderCart(listItemInCart);
+  }
+}
+function increment(id) {
+  productQuantities[id]++;
+  renderCart(listItemInCart);
+}
 
-// function decrement(id) {
-//   if (productQuantities[id] === undefined || productQuantities[id] <= 1) {
-//     alert("Are you sure you want to quit this product?");
-//     document.querySelector(`.count_0${id}`).innerHTML = "";
-//     return;
-//   }
-//   productQuantities[id]--;
-//   document.querySelector(`.count_0${id}`).innerHTML = productQuantities[id];
-// }
-// function increment(id) {
-//   if (productQuantities[id] === undefined) {
-//     productQuantities[id] = 1;
-//   } else {
-//     productQuantities[id]++;
-//   }
+// DELETE PRODUCT
+function deleteProduct(id) {
+  let productId = id;
+  console.log(productId);
+  console.log(listItemInCart);
+  for (let i = 0; i < listItemInCart.length; i++) {
+    let itemInCart = listItemInCart[i];
+    console.log(itemInCart[i]);
+  }
 
-//   document.querySelector(`.count_0${id}`).innerHTML = productQuantities[id];
-// }
+  // console.log(listItemInCart);
+
+  if (itemInCart == productId) {
+    // Xóa sản phẩm khỏi danh sách
+    listItemInCart.splice(productId, 1);
+
+    // Cập nhật số lượng sản phẩm và render lại giỏ hàng
+    productQuantities[id] = 0;
+    renderCart(listItemInCart);
+  }
+}
