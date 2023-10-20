@@ -75,8 +75,11 @@ let countProduct = 0;
 domID("cartNumber").style.display = "none";
 let listItemInCart = [];
 let idExist = [];
+let quantityID = [];
 function addCart(button) {
   let productId = button.getAttribute("data-id");
+  quantityID.push(productId);
+  console.log(quantityID);
   let promise = api.fectchData();
   promise
     .then(function (result) {
@@ -97,6 +100,7 @@ function addCart(button) {
       for (let i = 0; i < idExist.length; i++) {
         if (productId === idExist[i]) {
           checkRepeat = true;
+          break;
         }
       }
       if (!checkRepeat) {
@@ -104,9 +108,12 @@ function addCart(button) {
         renderCart(listItemInCart);
         console.log(listItemInCart);
         idExist.push(productId);
-        console.log(idExist);
+        // console.log(idExist);
         countProduct++;
+      } else {
+        // nếu trùng thì tăng số lượng lên
       }
+
       domID("cartNumber").innerHTML = countProduct;
     })
     .catch(function (error) {
@@ -131,7 +138,7 @@ function renderCart(data) {
                               <td>
                                   <div  class="quantity d-flex align-items-center justify-content-center ">
                     <button onclick = decrement(${itemInCart.id})>-</button>
-                                      <span class="count_${itemInCart.id}">1</span>
+                                      <span class="count_${itemInCart.id} p-2">1</span>
                     <button onclick = increment(${itemInCart.id})>+</button>
                                   </div>
                               </td>
@@ -149,23 +156,23 @@ function renderCart(data) {
 }
 // CHANGE QUANTITY
 // Get the elements
-let productQuantities = {};
+// let productQuantities = {};
 
-function decrement(id) {
-  if (productQuantities[id] === undefined || productQuantities[id] <= 1) {
-    alert("Are you sure you want to quit this product?");
-    document.querySelector(`.count_0${id}`).innerHTML = "";
-    return;
-  }
-  productQuantities[id]--;
-  document.querySelector(`.count_0${id}`).innerHTML = productQuantities[id];
-}
-function increment(id) {
-  if (productQuantities[id] === undefined) {
-    productQuantities[id] = 1;
-  } else {
-    productQuantities[id]++;
-  }
+// function decrement(id) {
+//   if (productQuantities[id] === undefined || productQuantities[id] <= 1) {
+//     alert("Are you sure you want to quit this product?");
+//     document.querySelector(`.count_0${id}`).innerHTML = "";
+//     return;
+//   }
+//   productQuantities[id]--;
+//   document.querySelector(`.count_0${id}`).innerHTML = productQuantities[id];
+// }
+// function increment(id) {
+//   if (productQuantities[id] === undefined) {
+//     productQuantities[id] = 1;
+//   } else {
+//     productQuantities[id]++;
+//   }
 
-  document.querySelector(`.count_0${id}`).innerHTML = productQuantities[id];
-}
+//   document.querySelector(`.count_0${id}`).innerHTML = productQuantities[id];
+// }
