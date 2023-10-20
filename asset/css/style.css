@@ -411,7 +411,15 @@ select {
 
 
 
+.modal-footer b {
+    font-size: 22px;
 
+}
+
+.modal-footer i {
+    font-size: 20px;
+
+}
 
 /* LIST_ITEM */
 

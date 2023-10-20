@@ -58,7 +58,7 @@ function renderUI(data) {
             <img src="./asset/img/${product.image}">
         </div>
         <div class="item_bottom d-flex justify-content-between align-items-center">
-            <button onclick="addCart(this)" data-id="${product.id}" class="btn add_cart"> <i class="fa-solid fa-cart-plus"></i>
+            <button onclick="addCart(${product.id})" id="" class="btn add_cart"> <i class="fa-solid fa-cart-plus"></i>
                 </i> Add to Cart</button>
             <button onclick="buyNow()" class="btn btn-primary buy_now">Buy Now</button>
         </div>
@@ -71,57 +71,57 @@ function renderUI(data) {
 getListProduct();
 
 // ADD PRODUCT TO CART
-let countProduct = 0;
 domID("cartNumber").style.display = "none";
+let countProduct = 0;
 let listItemInCart = [];
 let idExist = [];
-function addCart(button) {
-  let productId = button.getAttribute("data-id");
+let productQuantities = {};
+// let countID = 1;
+function addCart(id) {
+  let productId = id;
+  console.log(productId);
   let promise = api.fectchData();
   promise
     .then(function (result) {
       let data = result.data;
-      // console.log(data);
-      let item = data.filter((value) => value.id === productId);
-      if (idExist.length === 0) {
-        listItemInCart.push(item);
-        renderCart(listItemInCart);
-        idExist.push(productId);
-        console.log(idExist);
-        countProduct++;
-        domID("cartNumber").style.display = "inline-block";
-        domID("cartNumber").innerHTML = countProduct;
-        return;
-      }
+      let item = data.filter((value) => value.id == productId);
       let checkRepeat = false;
       for (let i = 0; i < idExist.length; i++) {
         if (productId === idExist[i]) {
           checkRepeat = true;
+          break;
         }
       }
       if (!checkRepeat) {
         listItemInCart.push(item);
-        renderCart(listItemInCart);
-        console.log(listItemInCart);
         idExist.push(productId);
-        console.log(idExist);
         countProduct++;
+        domID("cartNumber").style.display = "inline-block";
+        domID("cartNumber").innerHTML = countProduct;
+        productQuantities[id] = 1;
+      } else {
+        productQuantities[id]++;
       }
-      domID("cartNumber").innerHTML = countProduct;
+      renderCart(listItemInCart);
     })
     .catch(function (error) {
       console.log(error);
     });
 }
+
 //===================================
 
 // RENDER CART
+
 function renderCart(data) {
   let content = "";
   for (let i = 0; i < data.length; i++) {
     let listItemInCart = data[i];
     for (let i = 0; i < listItemInCart.length; i++) {
       let itemInCart = listItemInCart[i];
+      const id = itemInCart.id;
+      const quantity = productQuantities[id];
+      let totalPriceItem = quantity * itemInCart.price;
       content += `
       <tr>
                               <td>
@@ -131,41 +131,85 @@ function renderCart(data) {
                               <td>
                                   <div  class="quantity d-flex align-items-center justify-content-center ">
                     <button onclick = decrement(${itemInCart.id})>-</button>
-                                      <span class="count_${itemInCart.id}">1</span>
+                                      <span class="count_${id} p-2">${quantity}</span>
                     <button onclick = increment(${itemInCart.id})>+</button>
                                   </div>
                               </td>
-                              <td>
-                                  <div id="totalPrice" class="total"><b>$</b> ${itemInCart.price}</div>
+                              <td >
+                                <i class="fa-solid fa-dollar-sign"></i>
+                                  <div id="totalPrice_${id}" class="totalPriceItem d-inline">${totalPriceItem}</div>
                               </td>
                               <td>
-                                  <button  class="btn btn-warning" id="deleteItem">Delete</button>
+                              <button class="btn btn-warning" onclick = deleteProduct(${itemInCart.id}) >Delete</button>
                               </td>
                           </tr>
     `;
     }
   }
+
   domID("itemInCart").innerHTML = content;
+  renderPriceAll();
 }
 // CHANGE QUANTITY
-// Get the elements
-let productQuantities = {};
-
 function decrement(id) {
-  if (productQuantities[id] === undefined || productQuantities[id] <= 1) {
-    alert("Are you sure you want to quit this product?");
-    document.querySelector(`.count_0${id}`).innerHTML = "";
-    return;
+  if (productQuantities[id] <= 1) {
+    if (confirm(`"Do you want to delete this product?"`) == true) {
+      productQuantities[id] = 0;
+      renderCart(listItemInCart);
+      deleteProduct(id);
+      return;
+    }
+    productQuantities[id] = 1;
+    renderCart(listItemInCart);
+  } else {
+    productQuantities[id]--;
+    renderCart(listItemInCart);
   }
-  productQuantities[id]--;
-  document.querySelector(`.count_0${id}`).innerHTML = productQuantities[id];
 }
 function increment(id) {
-  if (productQuantities[id] === undefined) {
-    productQuantities[id] = 1;
-  } else {
-    productQuantities[id]++;
-  }
+  productQuantities[id]++;
+  renderCart(listItemInCart);
+}
 
-  document.querySelector(`.count_0${id}`).innerHTML = productQuantities[id];
+// DELETE PRODUCT
+function deleteProduct(id) {
+  // renderPriceAll(id);
+
+  countProduct--;
+  domID("cartNumber").innerHTML = countProduct;
+
+  if (countProduct == 0) {
+  }
+  let productId = id;
+  for (let i = 0; i < listItemInCart.length; i++) {
+    let itemInCart = listItemInCart[i][0]; // Lấy sản phẩm từ mảng con
+    if (itemInCart.id == productId) {
+      // Tìm thấy sản phẩm có id tương ứng
+      listItemInCart.splice(i, 1);
+      productQuantities[id] = 0;
+      renderCart(listItemInCart);
+      console.log(itemInCart.id); // In ra sản phẩm
+      // Đây bạn có thể trích xuất các giá trị cụ thể của itemInCart bằng cách sử dụng itemInCart.property (ví dụ: itemInCart.price)
+      break; // Đã tìm thấy sản phẩm, có thể dừng vòng lặp
+    }
+  }
+}
+
+// PURCHASE PRODUCT
+domID("purchase").onclick = function () {
+  listItemInCart = [];
+  renderCart(listItemInCart);
+  countProduct = 0;
+  domID("cartNumber").style.display = "none";
+};
+
+function renderPriceAll() {
+  let elements = document.querySelectorAll(".totalPriceItem");
+  // console.log(elements);
+  let totalPriceAll = 0;
+  for (let i = 0; i < elements.length; i++) {
+    totalPriceAll += parseInt(elements[i].textContent);
+  }
+  // console.log(totalPriceAll);
+  domID("totalPriceAll").textContent = totalPriceAll;
 }
