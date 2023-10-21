@@ -14,4 +14,11 @@ function CallApi() {
     });
     return promise;
   };
+  this.deleteProduct = function (id) {
+    var promise = axios({
+      url: `https://6519a404818c4e98ac609bd3.mockapi.io/api/products/${id}`,
+      method: "DETELE",
+    });
+    return promise;
+  };
 }

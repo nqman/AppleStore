@@ -43,7 +43,6 @@ function filter() {
 }
 
 // REDER
-
 function renderUI(data) {
   let content = "";
   for (let i = 0; i < data.length; i++) {
