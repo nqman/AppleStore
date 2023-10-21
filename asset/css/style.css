@@ -103,12 +103,13 @@ img {
 
 /* HEADER */
 header {
-    background-color: #CBCBCC;
+    background-color: white;
     position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     z-index: 10;
+    height: 70px;
 }
 
 .header_logo {
@@ -159,6 +160,31 @@ header {
 /* HEADER */
 
 /* BANNER */
+.banner {
+    /* margin-top: 70px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.banner_item img {
+    height: 100vh;
+    overflow: hidden;
+    padding: 0;
+    /* overflow: hidden; */
+    width: 100%;
+
+}
+
+.banner_content {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 500px;
+    text-align: center;
+}
 
 /* BANNER */
 
@@ -238,9 +264,7 @@ select {
     background-color: rgba(238, 213, 216, 0.6);
 }
 
-#listProduct .phone {
-    /* display: none; */
-}
+
 
 
 
