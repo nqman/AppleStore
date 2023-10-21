@@ -2,7 +2,6 @@
 function domID(id) {
   return document.getElementById(id);
 }
-
 let api = new CallApi();
 function getListProduct() {
   domID("loader").style.display = "block";
@@ -17,6 +16,7 @@ function getListProduct() {
       console.log(error);
     });
 }
+
 // ONCHANGE
 function filter() {
   let typeSelect = domID("select").value;
@@ -43,6 +43,7 @@ function filter() {
 }
 
 // REDER
+
 function renderUI(data) {
   let content = "";
   for (let i = 0; i < data.length; i++) {
@@ -103,11 +104,14 @@ function addCart(id) {
         productQuantities[id]++;
       }
       renderCart(listItemInCart);
+
+      // setLocalStorage();
     })
     .catch(function (error) {
       console.log(error);
     });
 }
+// getLocalStorage();
 
 //===================================
 
@@ -150,31 +154,48 @@ function renderCart(data) {
   domID("itemInCart").innerHTML = content;
   renderPriceAll();
 }
+
+// function setLocalStorage() {
+//   let dataString = JSON.stringify(listItemInCart);
+//   localStorage.setItem("PRODUCTLIST", dataString);
+// }
+
+// function getLocalStorage() {
+//   let dataString = localStorage.getItem("PRODUCTLIST");
+//   if (dataString) {
+//     let dataJson = JSON.parse(dataString);
+//     /// cập nhật data từ LocalStorage vào
+//     listItemInCart = dataJson;
+//     renderCart(listItemInCart);
+//   }
+// }
 // CHANGE QUANTITY
 function decrement(id) {
   if (productQuantities[id] <= 1) {
     if (confirm(`"Do you want to delete this product?"`) == true) {
       productQuantities[id] = 0;
       renderCart(listItemInCart);
+      // setLocalStorage();
       deleteProduct(id);
       return;
     }
     productQuantities[id] = 1;
     renderCart(listItemInCart);
+    // setLocalStorage();
   } else {
     productQuantities[id]--;
     renderCart(listItemInCart);
+    // setLocalStorage();
   }
 }
 function increment(id) {
   productQuantities[id]++;
   renderCart(listItemInCart);
+  // setLocalStorage();
 }
 
 // DELETE PRODUCT
 function deleteProduct(id) {
-  // renderPriceAll(id);
-
   countProduct--;
   domID("cartNumber").innerHTML = countProduct;
   if (countProduct == 0) {
@@ -188,6 +209,7 @@ function deleteProduct(id) {
       listItemInCart.splice(i, 1);
       productQuantities[id] = 0;
       renderCart(listItemInCart);
+      // setLocalStorage();
       console.log(itemInCart.id); // In ra sản phẩm
       // Đây bạn có thể trích xuất các giá trị cụ thể của itemInCart bằng cách sử dụng itemInCart.property (ví dụ: itemInCart.price)
       break; // Đã tìm thấy sản phẩm, có thể dừng vòng lặp
@@ -199,6 +221,7 @@ function deleteProduct(id) {
 domID("purchase").onclick = function () {
   listItemInCart = [];
   renderCart(listItemInCart);
+  // setLocalStorage();
   countProduct = 0;
   domID("cartNumber").style.display = "none";
 };
