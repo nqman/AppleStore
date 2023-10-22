@@ -50,7 +50,7 @@ function deleteProduct(id) {
       console.log(error);
     });
 }
-
+// EDIT PRODUCT
 function editProduct(id) {
   console.log(id);
 }
