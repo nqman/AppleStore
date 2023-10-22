@@ -2,6 +2,9 @@
 function domID(id) {
   return document.getElementById(id);
 }
+
+// getLocalStorage();
+
 let api = new CallApi();
 function getListProduct() {
   domID("loader").style.display = "block";
@@ -92,6 +95,7 @@ function addCart(id) {
           break;
         }
       }
+      // Check nếu chưa có id trong giỏ hàng thì mới push sp vào
       if (!checkRepeat) {
         listItemInCart.push(item);
         idExist.push(productId);
@@ -110,7 +114,6 @@ function addCart(id) {
       console.log(error);
     });
 }
-// getLocalStorage();
 
 //===================================
 
@@ -202,21 +205,18 @@ function deleteProduct(id) {
   }
   let productId = id;
   for (let i = 0; i < listItemInCart.length; i++) {
-    let itemInCart = listItemInCart[i][0]; // Lấy sản phẩm từ mảng con
+    let itemInCart = listItemInCart[i][0];
     if (itemInCart.id == productId) {
-      // Tìm thấy sản phẩm có id tương ứng
       listItemInCart.splice(i, 1);
       productQuantities[id] = 0;
       renderCart(listItemInCart);
       // setLocalStorage();
-      console.log(itemInCart.id); // In ra sản phẩm
-      // Đây bạn có thể trích xuất các giá trị cụ thể của itemInCart bằng cách sử dụng itemInCart.property (ví dụ: itemInCart.price)
-      break; // Đã tìm thấy sản phẩm, có thể dừng vòng lặp
+      break;
     }
   }
 }
 
-// PURCHASE PRODUCT
+// Khi bấm vào nút mua hàng
 domID("purchase").onclick = function () {
   listItemInCart = [];
   renderCart(listItemInCart);
@@ -224,7 +224,7 @@ domID("purchase").onclick = function () {
   countProduct = 0;
   domID("cartNumber").style.display = "none";
 };
-
+// Tính tổng tiền
 function renderPriceAll() {
   let elements = document.querySelectorAll(".totalPriceItem");
   // console.log(elements);

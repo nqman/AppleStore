@@ -5,10 +5,6 @@
     box-sizing: border-box;
 }
 
-li {
-    list-style: none;
-}
-
 /* FONT */
 @font-face {
     font-family: 'SF Pro Display';
@@ -100,10 +96,9 @@ img {
 }
 
 
-/* .item_midle {
-    display: flex;
-    justify-content: center;
-} */
+li {
+    list-style: none;
+}
 
 /* HEADER */
 header {
@@ -352,10 +347,6 @@ select {
     background-color: rgba(238, 213, 216, 0.6);
 }
 
-
-
-
-
 /* PRODUCTS */
 
 /* FOOTER */
@@ -438,14 +429,12 @@ footer .footer_logo {
     margin-top: 20px;
 }
 
-
-
 /* FOOTER */
 
 
 
 
-/* CART */
+/* --------------------CART--------------------------- */
 /* MODAL */
 .header_logo a {
     color: black;
@@ -558,9 +547,6 @@ footer .footer_logo {
 }
 
 
-
-
-
 .modal-footer b {
     font-size: 22px;
 
@@ -570,8 +556,5 @@ footer .footer_logo {
     font-size: 20px;
 
 }
-
-/* LIST_ITEM */
-
 
 /* CART */
